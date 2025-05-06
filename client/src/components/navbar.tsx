@@ -58,7 +58,7 @@ export default function Navbar() {
               ))}
               <a 
                 href="#contact" 
-                className="bg-transparent border border-primary text-primary hover:bg-primary hover:text-background transition-colors duration-300 px-4 py-2 rounded text-sm uppercase tracking-wider"
+                className="bg-primary border border-primary text-background hover:bg-primary/90 hover:border-primary/90 transition-all duration-300 px-5 py-2 rounded text-sm uppercase tracking-wider font-medium shadow-lg shadow-primary/20"
                 onClick={handleNavLinkClick}
               >
                 Book Now
@@ -95,7 +95,7 @@ export default function Navbar() {
           ))}
           <a 
             href="#contact" 
-            className="block px-3 py-2 text-primary hover:bg-primary hover:text-background transition-colors duration-300 text-sm uppercase tracking-wider"
+            className="block mx-3 my-2 bg-primary text-background py-3 px-4 rounded text-center text-sm uppercase tracking-wider font-medium shadow-md shadow-primary/10 hover:bg-primary/90 transition-colors duration-300"
             onClick={handleNavLinkClick}
           >
             Book Now
