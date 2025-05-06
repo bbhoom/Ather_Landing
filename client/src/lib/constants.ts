@@ -7,8 +7,8 @@ export const IMAGES = {
   about: "/assets/about-us-video.mp4",
   
   // Master plan
-  masterPlan: "https://pixabay.com/get/g3b0df40c201b85c30f645f7a9c4a58c3c5cca6e836eba91ea6f2e1aeb6a400916f49f5e2ea3eab28b3b76ef758a612c392e818f692e0e8b32ca7714cb951ae90_1280.jpg",
-  locationMap: "https://pixabay.com/get/g25c0a36c41e65ce027ec3d2e41b7e82fefed1656806841642e1b1c1128e07b1982bc107b69e162ce5eeb35faaa4a610496c7c45fd11b8f1ced75901a6f17a21f_1280.jpg",
+  masterPlan: "/assets/master-plan.jpg",
+  locationMap: "/assets/location-map.png",
   
   // Amenities
   childrenPlayArea: "https://pixabay.com/get/g820258cd162f165da53f7b9764e367aeb689c1ca01ba50cce6391c41b889f71de217cb983c39d4b4349ca64b9a21dae2ecc667379ceeacdcaa99533aaba41724_1280.jpg",
@@ -24,7 +24,7 @@ export const IMAGES = {
   gallery6: "https://images.unsplash.com/photo-1575540576545-3db8561c29e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
   
   // Location map
-  locationMapDetailed: "https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&h=900",
+  locationMapDetailed: "/assets/location-map.png",
   
   // WhatsApp icon
   whatsapp: "https://www.aetherbymythreyi.in/images/whatsapp.png"
