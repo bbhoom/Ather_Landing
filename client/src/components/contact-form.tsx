@@ -155,7 +155,7 @@ export default function ContactForm() {
           
           <Button 
             type="submit" 
-            className="w-full py-4 bg-primary hover:bg-primary/90 text-background font-medium rounded-sm transition-colors duration-300 uppercase tracking-wider text-sm"
+            className="w-full py-4 bg-primary hover:bg-primary/95 text-background font-medium rounded-sm transition-all duration-500 ease-in-out hover:shadow-md uppercase tracking-wider text-sm"
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Sending...' : 'Schedule a Visit'}

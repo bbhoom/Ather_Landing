@@ -46,7 +46,7 @@ export default function Gallery() {
           <Button 
             variant="outline" 
             size="lg" 
-            className="px-10 py-4 border-primary text-primary hover:bg-primary hover:text-background uppercase tracking-wider text-sm font-medium"
+            className="px-10 py-4 border-primary text-primary hover:bg-primary/95 hover:text-background uppercase tracking-wider text-sm font-medium transition-all duration-500 ease-in-out hover:shadow-md"
           >
             <a href="#contact" className="w-full">Schedule a Visit</a>
           </Button>

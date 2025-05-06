@@ -45,7 +45,7 @@ export default function PlotDimensions() {
                 <Button 
                   variant="default" 
                   size="lg" 
-                  className="w-full py-3 bg-primary hover:bg-primary/90 text-background font-medium uppercase tracking-wider text-sm"
+                  className="w-full py-3 bg-primary hover:bg-primary/95 text-background font-medium uppercase tracking-wider text-sm transition-all duration-500 ease-in-out hover:shadow-md"
                 >
                   <a href="#contact" className="w-full">Get Price</a>
                 </Button>
@@ -58,7 +58,7 @@ export default function PlotDimensions() {
           <Button 
             variant="outline" 
             size="lg" 
-            className="px-10 py-4 border-primary text-primary hover:bg-primary hover:text-background uppercase tracking-wider text-sm font-medium"
+            className="px-10 py-4 border-primary text-primary hover:bg-primary/95 hover:text-background uppercase tracking-wider text-sm font-medium transition-all duration-500 ease-in-out hover:shadow-md"
           >
             <a href="#contact" className="w-full">Book a Site Visit</a>
           </Button>

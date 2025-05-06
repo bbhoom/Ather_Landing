@@ -57,7 +57,7 @@ export default function HeroSection() {
           <Button 
             variant="default" 
             size="lg" 
-            className="bg-secondary hover:bg-secondary/80 text-white uppercase tracking-wider"
+            className="bg-secondary hover:bg-secondary/90 text-white uppercase tracking-wider transition-all duration-500 ease-in-out transform hover:shadow-md"
           >
             <a href="#plots" className="w-full">Explore Plots</a>
           </Button>
@@ -65,7 +65,7 @@ export default function HeroSection() {
           <Button 
             variant="outline" 
             size="lg" 
-            className="border-primary text-primary hover:bg-primary hover:text-background uppercase tracking-wider"
+            className="border-primary text-primary hover:bg-primary/90 hover:text-background uppercase tracking-wider transition-all duration-500 ease-in-out transform hover:shadow-md"
           >
             <a href="#contact" className="w-full">Book a Site Visit</a>
           </Button>
