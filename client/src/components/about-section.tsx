@@ -37,10 +37,14 @@ export default function AboutSection() {
           
           <div className="order-1 lg:order-2 animate-slide-left">
             <div className="overflow-hidden rounded-md shadow-2xl">
-              <img 
-                src={IMAGES.about} 
-                alt="Premium villa plots in Nandi Hills" 
-                className="w-full h-auto rounded-md hover-scale shadow-2xl" 
+              <video 
+                src={IMAGES.about}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-auto rounded-md hover-scale shadow-2xl"
+                controls
               />
             </div>
           </div>

@@ -5,6 +5,7 @@ import { setupVite, serveStatic, log } from "./vite";
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use('/assets', express.static('public/assets'));
 
 app.use((req, res, next) => {
   const start = Date.now();

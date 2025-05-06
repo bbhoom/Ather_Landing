@@ -1,10 +1,10 @@
 // Image URLs for the landing page
 export const IMAGES = {
   // Hero section
-  hero: "https://pixabay.com/get/gfb112dfcdbd504e82a25b8ac2e99264db2aa9b10f41b6052c66a33d5f638c60239bb69764520a986d6315f0b7a75acd70a9b8d86a163a8ca66b85d2e8c5955a7_1280.jpg",
+  hero: "/assets/bg.jpeg",
   
   // About section
-  about: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&h=1000",
+  about: "/assets/about-us-video.mp4",
   
   // Master plan
   masterPlan: "https://pixabay.com/get/g3b0df40c201b85c30f645f7a9c4a58c3c5cca6e836eba91ea6f2e1aeb6a400916f49f5e2ea3eab28b3b76ef758a612c392e818f692e0e8b32ca7714cb951ae90_1280.jpg",
