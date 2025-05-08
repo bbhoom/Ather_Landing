@@ -2,30 +2,30 @@
 export const IMAGES = {
   // Hero section
   hero: "/assets/bg.jpeg",
-  
+
   // About section
   about: "/assets/about-us-video.mp4",
-  
+
   // Master plan
   masterPlan: "/assets/master-plan.jpg",
   locationMap: "/assets/location-map.png",
-  
+
   // Amenities
   childrenPlayArea: "https://pixabay.com/get/g820258cd162f165da53f7b9764e367aeb689c1ca01ba50cce6391c41b889f71de217cb983c39d4b4349ca64b9a21dae2ecc667379ceeacdcaa99533aaba41724_1280.jpg",
   yogaDeck: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=1000",
-  swimmingPool: "https://images.unsplash.com/photo-1610641818989-c2051b5e2cfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=1000",
-  
+
+
   // Gallery
-  gallery1: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-  gallery2: "https://images.unsplash.com/photo-1545241047-6083a3684587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-  gallery3: "https://images.unsplash.com/photo-1563911302283-d2bc129e7570?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-  gallery4: "https://pixabay.com/get/g6e84d8831cceb9dce58eec5a8c38ad2fee10fa132c8ae46045a6d49036d3f93a5febea7f2bfa208ccb1bc8ac065ec24930658bd9249af26b0d57ea6762b1e641_1280.jpg",
-  gallery5: "https://images.unsplash.com/photo-1502672023488-70e25813eb80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-  gallery6: "https://images.unsplash.com/photo-1575540576545-3db8561c29e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-  
+  gallery1: "/assets/gallery/img2.png",
+  gallery2: "/assets/gallery/img4.png",
+  gallery3: "/assets/gallery/img5.jpeg",
+  gallery4: "/assets/gallery/img1.png",
+  gallery5: "/assets/gallery/img3.png",
+  gallery6: "/assets/gallery/img6.jpeg",
+
   // Location map
   locationMapDetailed: "/assets/location-map.png",
-  
+
   // WhatsApp icon
   whatsapp: "https://www.aetherbymythreyi.in/images/whatsapp.png"
 };
@@ -129,7 +129,7 @@ export const AMENITIES = [
     title: 'Swimming Pool',
     description: 'Luxurious swimming pool with dedicated lounging area.',
     icon: 'swimming-pool',
-    image: IMAGES.swimmingPool
+    image: IMAGES.gallery3
   }
 ];
 
@@ -232,8 +232,8 @@ export const GALLERY_IMAGES = [
   {
     id: 'scenic-view',
     src: IMAGES.gallery4,
-    alt: 'Scenic view of Nandi Hills',
-    title: 'Scenic view of Nandi Hills'
+    alt: 'Scenic views',
+    title: 'Scenic views'
   },
   {
     id: 'internal-roads',
@@ -254,23 +254,14 @@ export const SOCIAL_LINKS = [
   {
     id: 'facebook',
     icon: 'facebook-f',
-    url: '#'
+    url: 'https://www.facebook.com/people/Mythreyi-Developers/61567096948962/'
   },
   {
     id: 'instagram',
     icon: 'instagram',
-    url: '#'
+    url: 'https://www.instagram.com/mythreyidevelopers/'
   },
-  {
-    id: 'twitter',
-    icon: 'twitter',
-    url: '#'
-  },
-  {
-    id: 'linkedin',
-    icon: 'linkedin-in',
-    url: '#'
-  }
+
 ];
 
 // Contact information
@@ -291,7 +282,7 @@ export const CONTACT_INFO = [
     id: 'email',
     icon: 'envelope',
     title: 'Email',
-    content: 'info@aetherbymythreyi.in'
+    content: 'mythreyiprojects@gmail.com'
   }
 ];
 
@@ -299,7 +290,7 @@ export const CONTACT_INFO = [
 export const FOOTER_LINKS = [
   { id: 'home', label: 'Home', url: '#home' },
   { id: 'about', label: 'About', url: '#about' },
-  { id: 'plots', label: 'Plots', url: '#plots' },
+  { id: 'plots', label: 'Plots', url: '#master-plan' },
   { id: 'gallery', label: 'Gallery', url: '#gallery' },
   { id: 'amenities', label: 'Amenities', url: '#amenities' },
   { id: 'location', label: 'Location', url: '#location' },
@@ -311,7 +302,7 @@ export const FOOTER_CONTACT_INFO = [
   {
     id: 'address',
     icon: 'map-marker-alt',
-    content: 'Near Nandi Hills, Bangalore, Karnataka, India'
+    content: 'Aether, Foot Hill of Nandi Hills, Bangalore,Karnataka - 562125'
   },
   {
     id: 'phone',
@@ -321,7 +312,7 @@ export const FOOTER_CONTACT_INFO = [
   {
     id: 'email',
     icon: 'envelope',
-    content: 'info@aetherbymythreyi.in'
+    content: 'mythreyiprojects@gmail.com'
   },
   {
     id: 'hours',

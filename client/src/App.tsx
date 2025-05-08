@@ -5,6 +5,8 @@ import { queryClient } from "./lib/queryClient";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import { useEffect } from "react";
+import PrivacyPolicy from '@/pages/privacy-policy';
+
 
 function Router() {
   // Scroll to top on route change
@@ -15,9 +17,10 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      {/* Fallback to 404 */}
-      <Route component={NotFound} />
+      <Route path="/privacy-policy" component={PrivacyPolicy} />
+      <Route component={NotFound} /> {/* fallback route */}
     </Switch>
+
   );
 }
 
@@ -27,6 +30,7 @@ function App() {
       <Router />
       <Toaster />
     </QueryClientProvider>
+
   );
 }
 

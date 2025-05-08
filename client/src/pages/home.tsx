@@ -13,14 +13,15 @@ import ContactSection from '@/components/contact-section';
 import Footer from '@/components/footer';
 import FloatingWhatsapp from '@/components/floating-whatsapp';
 
+
 export default function Home() {
   // Refs for scroll animations
   const observerRef = useRef<IntersectionObserver | null>(null);
-  
+
   // Setup intersection observer for animations
   useEffect(() => {
     const animateElements = document.querySelectorAll('.animate-fade-in, .animate-slide-up, .animate-slide-right, .animate-slide-left, .animate-scale');
-    
+
     observerRef.current = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -31,17 +32,17 @@ export default function Home() {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
     });
-    
+
     animateElements.forEach(element => {
       observerRef.current?.observe(element);
     });
-    
+
     // Cleanup observer on unmount
     return () => {
       observerRef.current?.disconnect();
     };
   }, []);
-  
+
   return (
     <div className="bg-background min-h-screen">
       <Navbar />

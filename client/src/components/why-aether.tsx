@@ -6,21 +6,21 @@ export default function WhyAether() {
     <section className="py-24 bg-gradient-to-b from-secondary/50 to-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 animate-fade-in">
-          <SectionHeading 
-            title="Why" 
-            highlightedWord="Aether" 
+          <SectionHeading
+            title="Why"
+            highlightedWord="Aether"
             alignment="center"
           />
-          
+
           <p className="text-muted-foreground max-w-3xl mx-auto">
             Welcome to Aether, an exclusive BMRDA-approved gated community located near the serene Nandi Hills.
             Aether by Mythreyi offers premium villa plots set against the backdrop of picturesque foothills.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-fade-in">
           {WHY_AETHER.map((item, index) => (
-            <div 
+            <div
               key={item.id}
               className="bg-secondary/30 p-8 rounded-md hover-scale border-l-2 border-primary"
               style={{ transitionDelay: `${index * 100}ms` }}
