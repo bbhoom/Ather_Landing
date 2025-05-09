@@ -1,4 +1,4 @@
 [build]
-  base = "client"
-  publish = "dist"
-  command = "npm run build"
+  base = "" # Run commands from the root directory
+  publish = "dist/client" # Publish the client part of your build
+  command = "npm run build" # Use your build command from package.json
