@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import emailjs from '@emailjs/browser';
+import { Link } from 'wouter';
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -169,7 +170,7 @@ export default function ContactForm() {
       </form>
 
       <p className="text-xs text-muted-foreground/70 text-center mt-4">
-        By submitting this form, you agree to our <a href="/privacy-policy" className="text-primary hover:underline">privacy policy</a>.
+        By submitting this form, you agree to our <Link href="/privacy-policy" className="text-primary hover:underline">privacy policy</Link>.
       </p>
     </div>
   );

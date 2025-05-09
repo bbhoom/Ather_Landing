@@ -279,6 +279,12 @@ export const CONTACT_INFO = [
     content: '+91 8880880101'
   },
   {
+    id: 'secondary-phone',
+    icon: 'phone-alt',
+    title: 'Alternate No.',
+    content: '+91 9606910185' // Replace with your actual secondary number
+  },
+  {
     id: 'email',
     icon: 'envelope',
     title: 'Email',
@@ -309,6 +315,7 @@ export const FOOTER_CONTACT_INFO = [
     icon: 'phone-alt',
     content: '+91 8880880101'
   },
+  { id: 'secondary-phone', icon: 'phone-alt', content: '+91 9606910185' },
   {
     id: 'email',
     icon: 'envelope',
