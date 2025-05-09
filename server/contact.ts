@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
 import { google } from 'googleapis';
-// import nodemailer from 'nodemailer';
 
 // Define contact form schema (matching the frontend validation)
 const contactFormSchema = z.object({
@@ -30,13 +29,12 @@ export default async function handler(
         const validatedData = contactFormSchema.parse(req.body);
 
         // Process the validated form data
-        // await Promise.all([
-        //     saveToSpreadsheet(validatedData),
-        //     sendEmailNotification(validatedData)
-        // ]);
+        const spreadsheetResult = await saveToSpreadsheet(validatedData);
 
-        // For now, only save to spreadsheet
-        await saveToSpreadsheet(validatedData);
+        // Check if spreadsheet save was successful
+        if (!spreadsheetResult.success) {
+            throw new Error(spreadsheetResult.error || 'Failed to save to spreadsheet');
+        }
 
         // Return success response
         return res.status(200).json({
@@ -65,11 +63,30 @@ export default async function handler(
 /**
  * Save the form data to a Google Spreadsheet
  */
-async function saveToSpreadsheet(data: ContactFormData): Promise<void> {
+async function saveToSpreadsheet(data: ContactFormData): Promise<{ success: boolean, error?: string }> {
     try {
+        // Log that we're attempting to save to spreadsheet
+        console.log('Attempting to save form data to spreadsheet...');
+
+        // Check if environment variable is set
+        const serviceAccountKey = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
+        if (!serviceAccountKey) {
+            console.error('GOOGLE_SERVICE_ACCOUNT_KEY is not set or empty');
+            return { success: false, error: 'Missing service account credentials' };
+        }
+
+        // Parse service account key
+        let credentials;
+        try {
+            credentials = JSON.parse(serviceAccountKey);
+        } catch (e) {
+            console.error('Failed to parse GOOGLE_SERVICE_ACCOUNT_KEY:', e);
+            return { success: false, error: 'Invalid service account credentials format' };
+        }
+
         // Configure Google Sheets API
         const auth = new google.auth.GoogleAuth({
-            credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY || '{}'),
+            credentials,
             scopes: ['https://www.googleapis.com/auth/spreadsheets'],
         });
 
@@ -77,11 +94,11 @@ async function saveToSpreadsheet(data: ContactFormData): Promise<void> {
         const spreadsheetId = process.env.CONTACT_SPREADSHEET_ID;
 
         if (!spreadsheetId) {
-            throw new Error('CONTACT_SPREADSHEET_ID environment variable is not set');
+            console.error('CONTACT_SPREADSHEET_ID environment variable is not set');
+            return { success: false, error: 'Missing spreadsheet ID' };
         }
 
         // Format the data for the spreadsheet
-        // Format as [timestamp, name, email, phone, message]
         const values = [
             [
                 new Date().toISOString(),
@@ -92,78 +109,36 @@ async function saveToSpreadsheet(data: ContactFormData): Promise<void> {
             ]
         ];
 
+        // Log the values being sent
+        console.log('Sending to spreadsheet:', { spreadsheetId, values });
+
         // Append data to the spreadsheet
-        await sheets.spreadsheets.values.append({
+        const response = await sheets.spreadsheets.values.append({
             spreadsheetId,
-            range: 'Leads_aether!A:E', // Adjust the sheet name and range as needed
+            range: 'Leads_aether!A:E', // Make sure this sheet exists in your spreadsheet
             valueInputOption: 'USER_ENTERED',
             requestBody: {
                 values
             }
         });
 
-        console.log('Form data saved to spreadsheet successfully');
+        console.log('Spreadsheet API response:', response.status, response.statusText);
 
-    } catch (error) {
-        console.error('Error saving to spreadsheet:', error);
-        // Don't throw - we want to continue with other operations even if this fails
-    }
-}
-
-/**
- * Send email notification about the form submission
- * Currently commented out until email account is set up
- */
-/*
-async function sendEmailNotification(data: ContactFormData): Promise<void> {
-    try {
-        // Create a transporter using SMTP configuration
-        const transporter = nodemailer.createTransport({
-            host: process.env.EMAIL_HOST,
-            port: parseInt(process.env.EMAIL_PORT || '587'),
-            secure: process.env.EMAIL_SECURE === 'true',
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASSWORD,
-            },
-        });
-
-        // Email to notify admin about new contact submission
-        await transporter.sendMail({
-            from: process.env.EMAIL_FROM,
-            to: process.env.ADMIN_EMAIL, // Admin email to receive notifications
-            subject: 'New Contact Form Submission',
-            html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${data.name}</p>
-        <p><strong>Email:</strong> ${data.email}</p>
-        <p><strong>Phone:</strong> ${data.phone}</p>
-        <p><strong>Message:</strong> ${data.message || 'No message provided'}</p>
-        <p><em>Submitted on: ${new Date().toLocaleString()}</em></p>
-      `,
-        });
-
-        // Optional: Send confirmation email to the user
-        if (process.env.SEND_CONFIRMATION_EMAIL === 'true') {
-            await transporter.sendMail({
-                from: process.env.EMAIL_FROM,
-                to: data.email,
-                subject: 'Thank You for Contacting Us',
-                html: `
-          <h2>Thank You for Contacting Us</h2>
-          <p>Dear ${data.name},</p>
-          <p>We have received your contact request and will get back to you shortly.</p>
-          <p>Best regards,</p>
-          <p>The Team</p>
-        `,
-            });
+        if (response.status !== 200) {
+            return {
+                success: false,
+                error: `Spreadsheet API returned status ${response.status}: ${response.statusText}`
+            };
         }
 
-        console.log('Email notifications sent successfully');
+        console.log('Form data saved to spreadsheet successfully');
+        return { success: true };
 
-    } catch (error) {
-        console.error('Error sending email notification:', error);
-        // Don't throw - we want to continue with other operations even if this fails
+    } catch (error: any) {
+        console.error('Error saving to spreadsheet:', error);
+        return {
+            success: false,
+            error: error.message || 'Unknown error when saving to spreadsheet'
+        };
     }
 }
-*/

@@ -1,168 +1,173 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
-
-// Define the schema for form validation
-const contactFormSchema = z.object({
-  name: z.string()
-    .min(2, { message: 'Name must be at least 2 characters' })
-    .max(50, { message: 'Name must be less than 50 characters' }),
-  email: z.string()
-    .email({ message: 'Please enter a valid email address' }),
-  phone: z.string()
-    .min(10, { message: 'Please enter a valid phone number' })
-    .max(15, { message: 'Phone number is too long' }),
-  message: z.string().optional(),
-});
-
-type ContactFormValues = z.infer<typeof contactFormSchema>;
+import emailjs from '@emailjs/browser';
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
-  
-  // Initialize form with react-hook-form
-  const form = useForm<ContactFormValues>({
-    resolver: zodResolver(contactFormSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      phone: '',
-      message: '',
-    },
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
   });
-  
+  const [formStatus, setFormStatus] = useState({
+    message: '',
+    isError: false
+  });
+
+  // Handle input changes
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Initialize EmailJS on component mount (optional, can also be done in _app.js)
+  // useEffect(() => {
+  //   emailjs.init("YOUR_PUBLIC_KEY");
+  // }, []);
+
   // Handle form submission
-  async function onSubmit(data: ContactFormValues) {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     setIsSubmitting(true);
-    
+    setFormStatus({ message: '', isError: false });
+
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      
-      if (response.ok) {
-        toast({
-          title: "Success!",
-          description: "Your message has been sent. We'll get back to you soon.",
-          variant: "default",
-        });
-        
-        form.reset();
-      } else {
-        throw new Error('Failed to send message');
+      // Simple validation
+      if (!formData.name || !formData.email || !formData.phone) {
+        throw new Error('Please fill in all required fields');
       }
-    } catch (error) {
-      toast({
-        title: "Something went wrong!",
-        description: "Please try again later or contact us directly by phone.",
-        variant: "destructive",
+
+      // EmailJS configuration
+      // Replace these with your actual EmailJS service ID, template ID, and public key
+      const serviceId = 'service_q9wfpxe'; // e.g. 'service_abc123'
+      const templateId = 'template_pnvab21'; // e.g. 'template_xyz789'
+      const publicKey = '0qcATLfMYUXZ0WY1k'; // e.g. 'aBcDeFgHiJkLmNoPqRs'
+
+      // Prepare the template parameters
+      const templateParams = {
+        from_name: formData.name,
+        reply_to: formData.email,
+        phone_number: formData.phone,
+        message: formData.message || 'No message provided',
+        // You can add additional fields if needed
+        subject: `New contact request from ${formData.name}`
+      };
+
+      // Send the email using EmailJS
+      const response = await emailjs.send(
+        serviceId,
+        templateId,
+        templateParams,
+        publicKey
+      );
+
+      if (response.status === 200) {
+        // Success handling
+        setFormStatus({
+          message: 'Your message has been sent. We\'ll get back to you soon.',
+          isError: false
+        });
+
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          message: ''
+        });
+      } else {
+        throw new Error('Failed to send message. Please try again later.');
+      }
+    } catch (error: any) {
+      console.error('Form submission error:', error);
+      setFormStatus({
+        message: error.message || 'Something went wrong. Please try again later.',
+        isError: true
       });
     } finally {
       setIsSubmitting(false);
     }
-  }
-  
+  };
+
   return (
     <div className="bg-secondary/20 p-8 rounded-md gold-border-gradient">
       <h3 className="text-2xl font-playfair font-semibold text-primary mb-6 text-center">Schedule a Visit</h3>
-      
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <FormField
-            control={form.control}
+
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label htmlFor="name" className="block text-muted-foreground mb-1">Your Name *</label>
+          <Input
+            id="name"
             name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-muted-foreground">Your Name</FormLabel>
-                <FormControl>
-                  <Input 
-                    placeholder="Enter your name" 
-                    className="bg-background border-primary/30 rounded-sm focus:border-primary focus:ring-primary/20" 
-                    {...field} 
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Enter your name"
+            className="bg-background border-primary/30 rounded-sm focus:border-primary focus:ring-primary/20"
+            required
           />
-          
-          <FormField
-            control={form.control}
+        </div>
+
+        <div>
+          <label htmlFor="email" className="block text-muted-foreground mb-1">Email Address *</label>
+          <Input
+            id="email"
             name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-muted-foreground">Email Address</FormLabel>
-                <FormControl>
-                  <Input 
-                    placeholder="Enter your email" 
-                    type="email" 
-                    className="bg-background border-primary/30 rounded-sm focus:border-primary focus:ring-primary/20" 
-                    {...field} 
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter your email"
+            className="bg-background border-primary/30 rounded-sm focus:border-primary focus:ring-primary/20"
+            required
           />
-          
-          <FormField
-            control={form.control}
+        </div>
+
+        <div>
+          <label htmlFor="phone" className="block text-muted-foreground mb-1">Phone Number *</label>
+          <Input
+            id="phone"
             name="phone"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-muted-foreground">Phone Number</FormLabel>
-                <FormControl>
-                  <Input 
-                    placeholder="Enter your phone number" 
-                    type="tel" 
-                    className="bg-background border-primary/30 rounded-sm focus:border-primary focus:ring-primary/20" 
-                    {...field} 
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            type="tel"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="Enter your phone number"
+            className="bg-background border-primary/30 rounded-sm focus:border-primary focus:ring-primary/20"
+            required
           />
-          
-          <FormField
-            control={form.control}
+        </div>
+
+        <div>
+          <label htmlFor="message" className="block text-muted-foreground mb-1">Message (Optional)</label>
+          <Textarea
+            id="message"
             name="message"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-muted-foreground">Message (Optional)</FormLabel>
-                <FormControl>
-                  <Textarea 
-                    placeholder="Tell us about your requirements" 
-                    className="bg-background border-primary/30 rounded-sm focus:border-primary focus:ring-primary/20 min-h-[100px]" 
-                    {...field} 
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            value={formData.message}
+            onChange={handleChange}
+            placeholder="Tell us about your requirements"
+            className="bg-background border-primary/30 rounded-sm focus:border-primary focus:ring-primary/20 min-h-[100px]"
           />
-          
-          <Button 
-            type="submit" 
-            className="w-full py-4 bg-primary hover:bg-primary/95 text-background font-medium rounded-sm transition-all duration-500 ease-in-out hover:shadow-md uppercase tracking-wider text-sm"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Sending...' : 'Schedule a Visit'}
-          </Button>
-        </form>
-      </Form>
-      
+        </div>
+
+        {formStatus.message && (
+          <div className={`p-3 rounded ${formStatus.isError ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
+            {formStatus.message}
+          </div>
+        )}
+
+        <Button
+          type="submit"
+          className="w-full py-4 bg-primary hover:bg-primary/95 text-background font-medium rounded-sm transition-all duration-500 ease-in-out hover:shadow-md uppercase tracking-wider text-sm"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Sending...' : 'Schedule a Visit'}
+        </Button>
+      </form>
+
       <p className="text-xs text-muted-foreground/70 text-center mt-4">
         By submitting this form, you agree to our <a href="/privacy-policy" className="text-primary hover:underline">privacy policy</a>.
       </p>

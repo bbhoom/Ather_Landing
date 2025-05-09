@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export default function FloatingWhatsapp() {
   const whatsappNumber = "+918880880101";
-  const whatsappMessage = "Hi,Can I recieve more information about Ather project?";
+  const whatsappMessage = "Hi, \n Can I receive more information about Aether project?";
   const whatsappUrl = `https://web.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(whatsappMessage)}`;
 
   return (
