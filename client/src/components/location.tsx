@@ -87,7 +87,7 @@ export default function Location() {
           <div className="animate-fade-in rounded-md overflow-hidden shadow-2xl border border-primary/30">
             <div className="w-full h-full rounded-md overflow-hidden border border-primary/30 shadow-xl">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15554.184438975046!2d77.637869!3d13.357716!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDIxJzI3LjgiTiA3N8KwMzgnMTYuMyJF!5e0!3m2!1sen!2sin!4v1715087500000!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15561.316732279324!2d77.3893506!3d13.204731!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb1f106660d2ff5%3A0x0!2zMTPCsDExJzQwLjEiTiA3N8KwMjMnMjIuOCJF!5e0!3m2!1sen!2sin!4v1715248520000!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
