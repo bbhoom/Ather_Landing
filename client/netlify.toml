@@ -1,4 +1,8 @@
 [build]
-  base = "" # Run commands from the root directory
-  publish = "dist/client" # Publish the client part of your build
-  command = "npm run build" # Use your build command from package.json
+  command = "npm run build"
+  publish = "dist/public"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
