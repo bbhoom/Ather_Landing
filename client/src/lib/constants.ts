@@ -11,7 +11,7 @@ export const IMAGES = {
   locationMap: "/assets/location-map.png",
 
   // Amenities
-  childrenPlayArea: "https://pixabay.com/get/g820258cd162f165da53f7b9764e367aeb689c1ca01ba50cce6391c41b889f71de217cb983c39d4b4349ca64b9a21dae2ecc667379ceeacdcaa99533aaba41724_1280.jpg",
+  childrenPlayArea: "/assets/gallery/childrens_play.webp",
   yogaDeck: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=1000",
 
 
@@ -276,13 +276,13 @@ export const CONTACT_INFO = [
     id: 'phone',
     icon: 'phone-alt',
     title: 'Call Us',
-    content: '+91 95381 82438'
+    content: '+91 8880880101'
   },
   {
     id: 'email',
     icon: 'envelope',
     title: 'Email',
-    content: 'mythreyiprojects@gmail.com'
+    content: 'Vishnuwarvenkatesh@gmail.com'
   }
 ];
 
@@ -307,12 +307,12 @@ export const FOOTER_CONTACT_INFO = [
   {
     id: 'phone',
     icon: 'phone-alt',
-    content: '+91 95381 82438'
+    content: '+91 8880880101'
   },
   {
     id: 'email',
     icon: 'envelope',
-    content: 'mythreyiprojects@gmail.com'
+    content: 'Vishnuwarvenkatesh@gmail.com'
   },
   {
     id: 'hours',
